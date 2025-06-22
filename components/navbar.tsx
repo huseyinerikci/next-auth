@@ -8,6 +8,7 @@ const NavBar = () => {
 
   const isLoading = status === "loading";
   const isAuthenticated = status === "authenticated";
+  const user = session?.user;
 
   const handleLogin = () => {
     signIn("auth0", {
@@ -30,18 +31,23 @@ const NavBar = () => {
       {isLoading ? (
         <div>Yükleniyor...</div>
       ) : (
-        <div className="flex gap-4">
-          {!isAuthenticated ? (
-            <>
-              <button onClick={handleLogin}>Giriş Yap</button>
-            </>
-          ) : (
+        <div className="flex gap-4 items-center">
+          {isAuthenticated ? (
             <>
               <Link href="/profile">
                 <button>Profil</button>
               </Link>
+
+              {Array.isArray(user?.role) && user.role.includes("admin") && (
+                <Link href="/admin">
+                  <button>Admin Paneli</button>
+                </Link>
+              )}
+
               <button onClick={handleLogout}>Çıkış</button>
             </>
+          ) : (
+            <button onClick={handleLogin}>Giriş Yap</button>
           )}
         </div>
       )}

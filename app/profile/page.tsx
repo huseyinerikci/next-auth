@@ -19,7 +19,7 @@ const Profile = () => {
         alt="Profile"
         className="rounded-full w-20 h-20"
       />
-      <h2>Role : {user?.name}</h2>
+      <h2>Role : {user?.role}</h2>
       <h2>Name : {user?.name}</h2>
       <p>Email : {user?.email}</p>
     </div>
