@@ -26,8 +26,11 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.id = user?.id;
 
-        const role = (profile as any)[namespace] ?? "user";
-
+        const rawRole = (profile as any)[namespace];
+        const role =
+          !rawRole || (Array.isArray(rawRole) && rawRole.length === 0)
+            ? "user"
+            : rawRole;
         token.role = role;
       }
       return token;
